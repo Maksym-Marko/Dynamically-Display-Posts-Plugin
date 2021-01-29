@@ -34,15 +34,15 @@ class MXDDP_Enqueue_Scripts_Frontend
 
 			// include Vue.js
 				// dev version
-				wp_enqueue_script( 'mx_ddp_vue_js', MXDDP_PLUGIN_URL . 'includes/frontend/assets/add/vue_js/vue.dev.js', [], MXDDP_PLUGIN_VERSION, true );
+				// wp_enqueue_script( 'mx_ddp_vue_js', MXDDP_PLUGIN_URL . 'includes/frontend/assets/add/vue_js/vue.dev.js', [], MXDDP_PLUGIN_VERSION, true );
 
 				// production version
-				//wp_enqueue_script( 'mx_ddp_vue_js', MXDDP_PLUGIN_URL . 'includes/frontend/assets/add/vue_js/vue.production.js', array(), MXDDP_PLUGIN_VERSION, true );
+				wp_enqueue_script( 'mx_ddp_vue_js', MXDDP_PLUGIN_URL . 'includes/frontend/assets/add/vue_js/vue.production.js', [], MXDDP_PLUGIN_VERSION, true );
 			
 			wp_enqueue_script( 'mxddp_script', MXDDP_PLUGIN_URL . 'includes/frontend/assets/js/script.js', ['mx_ddp_vue_js', 'jquery' ], MXDDP_PLUGIN_VERSION, true );
 
 
-			wp_localize_script( 'mxddp_script', 'mx_ddpdata_obj_front', array(
+			wp_localize_script( 'mxddp_script', 'mx_ddpdata_obj_front', [
 
 				'nonce' => wp_create_nonce( 'mx_ddpdata_nonce_request_front' ),
 
@@ -52,13 +52,13 @@ class MXDDP_Enqueue_Scripts_Frontend
 
 				'no_phot' => MXDDP_PLUGIN_URL . 'includes/frontend/assets/img/no-photo.jpg',
 
-				'texts'	=> array(
-					'error_getting' 	=> __( 'Error getting FAQ from database!', 'mx_ddp-domain' ),
-					'no_questions'		=> __( 'There are no questions yet.', 'mx_ddp-domain' ),
+				'texts'	=> [
+					'error_getting' 	=> __( 'Error getting Data from database!', 'mx_ddp-domain' ),
+					'no_questions'		=> __( 'There are no posts yet.', 'mx_ddp-domain' ),
 					'nothing_found'		=> __( 'Nothing found!', 'mx_ddp-domain' )					
-				)
+				]
 
-			) );
+			] );
 
 		
 		}

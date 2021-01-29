@@ -74,7 +74,7 @@ if ( ! defined( 'MXDDP_PLUGIN_ABS_PATH' ) ) {
 if ( ! defined( 'MXDDP_PLUGIN_VERSION' ) ) {
 
 	// version
-	define( 'MXDDP_PLUGIN_VERSION', time() ); // Must be replaced before production on for example '1.0'
+	define( 'MXDDP_PLUGIN_VERSION', '1.0' ); // Must be replaced before production on for example '1.0'
 
 }
 

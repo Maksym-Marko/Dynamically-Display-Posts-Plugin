@@ -32,13 +32,13 @@ class MXDDP_Enqueue_Scripts
 
 			wp_enqueue_style( 'mxddp_admin_style', MXDDP_PLUGIN_URL . 'includes/admin/assets/css/style.css', [ 'mxddp_font_awesome' ], MXDDP_PLUGIN_VERSION, 'all' );
 
-			wp_enqueue_script( 'mxddp_admin_script', MXDDP_PLUGIN_URL . 'includes/admin/assets/js/script.js', [ 'jquery' ], MXDDP_PLUGIN_VERSION, false );
+			// wp_enqueue_script( 'mxddp_admin_script', MXDDP_PLUGIN_URL . 'includes/admin/assets/js/script.js', [ 'jquery' ], MXDDP_PLUGIN_VERSION, false );
 
-			wp_localize_script( 'mxddp_admin_script', 'mxddp_admin_localize', [
+			// wp_localize_script( 'mxddp_admin_script', 'mxddp_admin_localize', [
 
-				'ajaxurl' 			=> admin_url( 'admin-ajax.php' )
+			// 	'ajaxurl' 			=> admin_url( 'admin-ajax.php' )
 
-			] );
+			// ] );
 
 		}
 

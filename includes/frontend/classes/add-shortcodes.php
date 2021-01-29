@@ -61,22 +61,58 @@ class MX_DDP_Add_Shortcodes
 
 			}
 
-			?>
+			// posts per page
+			$posts_per_page 	= 10;
+
+			if( isset( $atts['posts_per_page'] ) ) {
+
+				$posts_per_page = intval( $atts['posts_per_page'] );
+
+			}
+
+			// pagination (none, numbers, load_more)
+			$pagination 		= 'numbers';
+
+			if( isset( $atts['pagination'] ) ) {
+
+				$pagination = sanitize_text_field( $atts['pagination'] );
+
+			}
+
+			// default image
+			$default_image_url 	= 'none';
+
+			if( isset( $atts['default_image_url'] ) ) {
+
+				$default_image_url = esc_url_raw( $atts['default_image_url'] );
+
+			}
+
+			// search bar (on, off)
+			$search_bar 		= 'on';
+
+			if( isset( $atts['search_bar'] ) ) {
+
+				$search_bar = sanitize_text_field( $atts['search_bar'] );
+
+			}
+
+			?>			
 
 			<script>
 
-				window.mx_ddp_post_type = '<?php echo $post_type; ?>';
+				window.mx_ddp_post_type 		= '<?php echo $post_type; ?>';
 
-				window.mx_ddp_tax_query = [];
-				
-			</script>
+				window.mx_ddp_posts_per_page 	= <?php echo $posts_per_page; ?>;
 
-			<?php if( $term_ids !== NULL ) : ?>
+				window.mx_ddp_pagination 		= '<?php echo $pagination; ?>';
 
-				<script>
+				window.mx_ddp_default_image_url = '<?php echo $default_image_url; ?>';
 
-					window.mx_ddp_post_type = '<?php echo $post_type; ?>'
-				
+				window.mx_ddp_search_bar 		= '<?php echo $search_bar; ?>';
+
+				<?php if( $term_ids !== NULL ) : ?>
+			
 					window.mx_ddp_tax_query = [
 
 						<?php foreach ( $term_ids as $key => $value ) : ?>
@@ -86,9 +122,13 @@ class MX_DDP_Add_Shortcodes
 						<?php endforeach; ?>
 					];
 
-				</script>
+				<?php else : ?>
 
-			<?php endif; ?>			
+					window.mx_ddp_tax_query = [];
+
+				<?php endif; ?>
+
+			</script>					
 		
 			<div id="mx_ddp_container">
 
@@ -96,6 +136,7 @@ class MX_DDP_Add_Shortcodes
 				<mx_ddp_search
 					:pageloading="pageLoading"
 					@mx-search-request="searchQuestion"
+					v-if="search_bar === 'on'"
 				></mx_ddp_search>
 
 				<!-- list of items -->
@@ -106,21 +147,22 @@ class MX_DDP_Add_Shortcodes
 					:load_img="loadImg"
 					:no_items="noItemsDisplay"
 					:post_type="post_type"
+					:default_photo="default_photo"
 				></mx_ddp_list_items>
 
 				<!-- pagination -->
-				<!-- <mx_ddp_pagination
+				<mx_ddp_pagination
 					:pageloading="pageLoading"
-					v-if="!parseJSONerror"
+					v-if="!parseJSONerror && ddpPaginagion === 'numbers'"
 					:ddpcount="ddpCount"
 					:ddpperpage="ddpPerPage"
 					:ddpcurrentpage="ddpCurrentPage"					
 					@get-ddp-page="changeddpPage"
-				></mx_ddp_pagination> -->
+				></mx_ddp_pagination>
 
 				<mx_ddp_load_more_button
 					:pageloading="pageLoading"
-					v-if="!parseJSONerror"
+					v-if="!parseJSONerror && ddpPaginagion === 'load_more'"
 					:ddpcount="ddpCount"
 					:ddpperpage="ddpPerPage"
 					:ddpcurrentpage="ddpCurrentPage"

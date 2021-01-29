@@ -37,7 +37,7 @@
 	width: 100%;
 	background: rgb(77, 196, 66);
 	text-decoration: none;
-	height: 59px;
+	height: 57px;
     color: #fff;
 }
 #mx_ddp_container .mx-input-group-prepend button i {
@@ -120,7 +120,7 @@
 	color: #fff;
 	text-decoration: none;
 	font-family: 'Arial';
-    font-size: 22px;
+    font-size: 20px;
     padding: 12px 20px;
 }
 #mx_ddp_container .mx-cmt-wrap-link button:hover {
@@ -147,6 +147,10 @@ ul.mx-ddp-pagination {
 	-webkit-box-pack: center;
 	    -ms-flex-pack: center;
 	        justify-content: center;
+}
+ul.mx-ddp-pagination li {
+	margin: 0;
+	padding: 0;
 }
 ul.mx-ddp-pagination a {
 	text-decoration: none !important;

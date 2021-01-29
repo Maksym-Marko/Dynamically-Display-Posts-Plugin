@@ -2,7 +2,7 @@
 	
 	<h1><?php echo __( 'Dynamically Display Posts Settings Page', 'mxddp-domain' ); ?></h1>
 
-	<form id="mxddp_form_update" class="mx-settings mx-settings-form" method="post" action="">
+	<!-- <form id="mxddp_form_update" class="mx-settings mx-settings-form" method="post" action="">
 
 		<div class="mx-block_wrap">
 
@@ -20,19 +20,39 @@
 			
 		</div>
 
-	</form>
+	</form> -->
 
 	<div class="mx-ddp_shortcodes">
 		<h3><?php echo __( 'Display posts on any page.', 'mxddp-domain' ); ?></h3>
 		<p>
-			You should use the shortcode below to pase it on the page. 
+			You should use the shortcode below to place it on the page. 
 		</p>
 		<p style="font-weight: bold;">
-			[mx_ddp_post_template post_type="news_sport" term_ids="18,19"]
+			[mx_ddp_post_template post_type="news_sport" term_ids="18,19" posts_per_page="5" pagination="none" default_image_url="<?php echo MXDDP_PLUGIN_URL . 'includes/frontend/assets/img/no-photo.jpg'; ?>" search_bar="on"]
 		</p>
-		<p>
-			Where the <b>post_type</b> is a post type that you want to get and <b>term_ids</b> is list of id's of categories you want to get (You should place list of category ID's separated by comma (,)).
-		</p>
+
+		<h3>Where the properties are:</h3>
+
+		<ul>
+			<li>
+				<b>post_type</b> - The post type to display (default value = 'post')
+			</li>
+			<li>
+				<b>term_ids</b> - The exists taxonomy IDs of the current (post_type prop.) post type. You should place list of category IDs separated by comma (,). (default value is not specified)
+			</li>
+			<li>
+				<b>posts_per_page</b> - Number of posts on each page (default value = '10')
+			</li>
+			<li>
+				<b>pagination</b> - Type of navigation. Defined values: none, numbers, load_more (default value = 'numbers')
+			</li>
+			<li>
+				<b>default_image_url</b> - If a post doesn't have any thumbnail, you can set up the default image (default value = '<?php echo MXDDP_PLUGIN_URL . 'includes/frontend/assets/img/no-photo.jpg'; ?>')
+			</li>
+			<li>
+				<b>search_bar</b> - Display search bar. Defined values: on, off (default value = 'on')
+			</li>
+		</ul>
 	</div>
 
 </div>

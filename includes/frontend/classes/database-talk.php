@@ -32,7 +32,6 @@ class MX_DDP_Database_Talk
 
 			add_action( 'wp_ajax_nopriv_mx_ddp_load_more_items', array( 'MX_DDP_Database_Talk', 'mx_ddp_load_more_items' ) );
 			
-
 	}
 
 		// load more
@@ -47,7 +46,7 @@ class MX_DDP_Database_Talk
 
 				if( isset( $_POST['post_type'] ) ) {
 
-					$post_type = $_POST['post_type'];
+					$post_type = sanitize_text_field( $_POST['post_type'] );
 
 				}
 
@@ -75,15 +74,11 @@ class MX_DDP_Database_Talk
 						ORDER BY post_date DESC
 						LIMIT $current_page, $ddp_per_page";
 
-
-				// tax_query
-
-
-
-
 				if( isset( $_POST["tax_query"] ) ) {
 
 					$tax_ids = implode( ',', $_POST['tax_query'] );
+
+					$tax_ids = sanitize_text_field( $tax_ids );
 
 					$sql_str = "SELECT ID, post_title, post_date, post_title, post_content, post_excerpt				
 						FROM $posts_table
@@ -106,12 +101,6 @@ class MX_DDP_Database_Talk
 				if( $post_type === 'post' ) {
 
 					$thumbnail_size = 'mx_news_thumbnail';
-
-				}
-
-				if( $post_type === 'leeds_data' ) {
-
-					$thumbnail_size = 'mx_square_thumbnail';
 
 				}
 
@@ -154,7 +143,7 @@ class MX_DDP_Database_Talk
 
 				if( isset( $_POST['post_type'] ) ) {
 
-					$post_type = $_POST['post_type'];
+					$post_type = sanitize_text_field( $_POST['post_type'] );
 
 				}		
 
@@ -186,6 +175,8 @@ class MX_DDP_Database_Talk
 
 					$tax_ids = implode( ',', $_POST['tax_query'] );
 
+					$tax_ids = sanitize_text_field( $tax_ids );
+
 					$sql_str = "SELECT ID, post_title, post_date, post_title, post_content, post_excerpt				
 						FROM $posts_table
 						INNER JOIN $term_relationships_table ON $posts_table.ID = $term_relationships_table.object_id
@@ -208,23 +199,9 @@ class MX_DDP_Database_Talk
 
 					$thumbnail_size = 'mx_news_thumbnail';
 
-				}
-
-				if( $post_type === 'leeds_data' ) {
-
-					$thumbnail_size = 'mx_square_thumbnail';
-
-				}		
+				}	
 
 				foreach ( $posts_id_results as $key => $value ) {
-
-					// $user_name = get_post_meta( $value->ID, '_mxffi_user_name', true );
-
-					// $response = get_post_meta( $value->ID, '_mxffi_ddp_response', true );
-
-					// $posts_id_results[$key]->user_name = $user_name;
-
-					// $posts_id_results[$key]->answer = $response;
 
 					$the_thumbnail = get_the_post_thumbnail_url( $value->ID, $thumbnail_size );
 
@@ -275,7 +252,7 @@ class MX_DDP_Database_Talk
 
 				if( isset( $_POST['post_type'] ) ) {
 
-					$post_type = $_POST['post_type'];
+					$post_type = sanitize_text_field( $_POST['post_type'] );
 
 				}	
 
@@ -298,6 +275,8 @@ class MX_DDP_Database_Talk
 				if( isset( $_POST["tax_query"] ) ) {
 
 					$tax_ids = implode( ',', $_POST['tax_query'] );
+
+					$tax_ids = sanitize_text_field( $tax_ids );
 
 					$sql_str = "SELECT COUNT(ID)				
 						FROM $posts_table
@@ -332,7 +311,7 @@ class MX_DDP_Database_Talk
 
 				if( isset( $_POST['post_type'] ) ) {
 
-					$post_type = $_POST['post_type'];
+					$post_type = sanitize_text_field( $_POST['post_type'] );
 
 				}	
 
@@ -364,6 +343,8 @@ class MX_DDP_Database_Talk
 
 					$tax_ids = implode( ',', $_POST['tax_query'] );
 
+					$tax_ids = sanitize_text_field( $tax_ids );
+
 					$sql_str = "SELECT ID, post_title, post_date, post_title, post_content, post_excerpt
 						FROM $posts_table
 						INNER JOIN $term_relationships_table ON $posts_table.ID = $term_relationships_table.object_id
@@ -385,12 +366,6 @@ class MX_DDP_Database_Talk
 				if( $post_type === 'post' ) {
 
 					$thumbnail_size = 'mx_news_thumbnail';
-
-				}
-
-				if( $post_type === 'leeds_data' ) {
-
-					$thumbnail_size = 'mx_square_thumbnail';
 
 				}
 

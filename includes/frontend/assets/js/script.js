@@ -157,6 +157,10 @@ Vue.component( 'mx_ddp_item', {
 		post_type: {
 			type: String,
 			required: true
+		},
+		default_photo: {
+			type: String,
+			required: true
 		}
 	},
 
@@ -177,8 +181,8 @@ Vue.component( 'mx_ddp_item', {
     </div>
 	`,
 	data() {
-		return {
-			no_phot: mx_ddpdata_obj_front.no_phot
+		return {			
+
 		}
 	},
 	computed: {
@@ -203,7 +207,7 @@ Vue.component( 'mx_ddp_item', {
 		},
 		the_thumbnail() {
 
-			let thumbnail = this.no_phot
+			let thumbnail = this.default_photo
 
 			if( this.ddpitemdata.the_thumbnail ) {
 
@@ -282,6 +286,10 @@ Vue.component( 'mx_ddp_list_items', {
 		post_type: {
 			type: String,
 			required: true
+		},
+		default_photo: {
+			type: String,
+			required: true
 		}
 	},
 	template: `
@@ -312,6 +320,7 @@ Vue.component( 'mx_ddp_list_items', {
 						:key="item.ID"				
 						:ddpitemdata="item"
 						:post_type="post_type"
+						:default_photo="default_photo"
 					></mx_ddp_item>
 
 				</div>
@@ -431,7 +440,10 @@ if( document.getElementById( 'mx_ddp_container' ) ) {
 			query: '',
 			tax_query: [],
 			load_more_progress: false,
-			post_type: 'post'
+			post_type: 'post',
+			ddpPaginagion: 'numbers',
+			default_photo: mx_ddpdata_obj_front.no_phot,
+			search_bar: 'on'
 		},
 		methods: {
 			loadMoreItems() {
@@ -669,7 +681,67 @@ if( document.getElementById( 'mx_ddp_container' ) ) {
 
 				}
 
-			}
+			},
+			preparePostsPerPage() {
+
+				if( mx_ddp_posts_per_page !== 'undefined' ) {
+
+					this.ddpPerPage = mx_ddp_posts_per_page
+
+				} else {
+
+					this.ddpPerPage = 10
+
+				}
+
+			},
+			preparePagination() {
+
+				if( mx_ddp_pagination !== 'undefined' ) {
+
+					this.ddpPaginagion = mx_ddp_pagination
+
+				} else {
+
+					this.ddpPaginagion = 'numbers'
+
+				}
+
+			},
+			prepareDefaultImage() {
+
+				if( mx_ddp_default_image_url !== 'undefined' ) {
+
+					if( mx_ddp_default_image_url !== 'none' ) {
+
+						this.default_photo = mx_ddp_default_image_url
+
+					}					
+
+				} else {
+
+					this.default_photo = mx_ddpdata_obj_front.no_phot
+
+				}
+
+			},
+			prepareSearchBar() {
+
+				if( mx_ddp_search_bar !== 'undefined' ) {
+
+					if( mx_ddp_search_bar === 'off' ) {
+
+						this.search_bar = mx_ddp_search_bar
+
+					}					
+
+				} else {
+
+					this.search_bar = 'on'
+
+				}
+
+			}		
 			
 		},
 		beforeMount() {
@@ -679,6 +751,18 @@ if( document.getElementById( 'mx_ddp_container' ) ) {
 
 			// prepare post type
 			this.preparePostType()
+
+			// prepare posts per page
+			this.preparePostsPerPage()
+
+			// prepare pagination
+			this.preparePagination()
+
+			// prepare default image
+			this.prepareDefaultImage()
+
+			// prepare search bar
+			this.prepareSearchBar()
 
 			// get current page
 			this.get_current_page()
