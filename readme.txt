@@ -3,12 +3,12 @@ Contributors: markomaksym
 Tags: display posts, display CPT, pagination, load more button
 Requires at least: 5.0
 Tested up to: 5.6
-Stable tag: 1.0
+Stable tag: 888
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 	WP Plugin Sceleton Generator Version: 			3.0
 	WP Plugin Sceleton Generator Author: 			Maksym Marko
-	WP Plugin Sceleton Generator Author Website:	https://markomaksym.com.ua/
+	WP Plugin Sceleton Generator Author Website:	
 
 This plugin allows you to display a list of posts on your website on any page.
 
@@ -49,6 +49,12 @@ This plugin allows you to display a list of posts on your website on any page.
 	</li>
 </ul>
 
+<p>
+	<b>How does it work?</b>
+</p>
+
+<iframe width="600" height="320" src="https://www.youtube.com/embed/q3LcB2gtDWE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 == Installation ==
 
 = From your WordPress dashboard =
@@ -56,14 +62,12 @@ This plugin allows you to display a list of posts on your website on any page.
 1. Visit 'Plugins > Add New'
 2. Search for 'Dynamically Display Posts'
 3. Activate the plugin from your Plugins page.
-4. ...
 
 = From WordPress.org =
 
 1. Download 'Dynamically Display Posts'.
 2. Upload the 'Dynamically Display Posts' directory to your '/wp-content/plugins/' directory, using your favorite method (ftp, sftp, scp, etc...)
 3. Activate 'Dynamically Display Posts' from your Plugins page.
-4. ...
 
 == Screenshots ==
 

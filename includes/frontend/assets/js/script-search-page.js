@@ -2,7 +2,7 @@
 // Vue.component( 'vue-recaptcha', VueRecaptcha )
 
 // load more button
-Vue.component( 'mx_ddp_load_more_button', {
+Vue.component( 'mx_ddp_load_more_button_sp', {
 
 	props: {
 		ddpcount: {
@@ -39,7 +39,7 @@ Vue.component( 'mx_ddp_load_more_button', {
 					type="button"
 					class="btn cmt-button cmt-green cmt-shadow"
 					@click.prevent="loadMore" 
-				>Load More</button>
+				>{{more_res_text}}</button>
 			</p>
 			<div v-if="load_more_progress" class="mx-loading-ddp">
 				<img :src="load_img" alt="" class="" />						
@@ -59,12 +59,36 @@ Vue.component( 'mx_ddp_load_more_button', {
 			this.$emit( 'load_more', true )
 
 		}
+	},
+	computed: {
+		post_nav_text() {
+
+			if( mx_ddpdata_obj_front.texts.language === 'en' ) {
+
+				return mx_ddpdata_obj_front.texts.post_nav_en
+
+			}
+
+			return mx_ddpdata_obj_front.texts.post_nav_ru
+
+		},
+		more_res_text() {
+
+			if( mx_ddpdata_obj_front.texts.language === 'en' ) {
+
+				return mx_ddpdata_obj_front.texts.more_res_en
+
+			}
+
+			return mx_ddpdata_obj_front.texts.more_res_ru
+
+		}
 	}
 
 } )
 
 // search
-Vue.component( 'mx_ddp_search', {
+Vue.component( 'mx_ddp_search_sp', {
 
 	props: {
 		pageloading: {
@@ -169,7 +193,7 @@ Vue.component( 'mx_ddp_search', {
 } )
 
 // item
-Vue.component( 'mx_ddp_item', {
+Vue.component( 'mx_ddp_item_sp', {
 
 	props: {
 		ddpitemdata: {
@@ -183,33 +207,44 @@ Vue.component( 'mx_ddp_item', {
 		default_photo: {
 			type: String,
 			required: true
+		},
+		query: {
+			type: String,
+			required: true
 		}
 	},
 
 	template: `
-	<div :class="get_classes_wrap">
+	<article>
 
-		<div class="mx-default">
-			<div class="mx-ddp-image-wrap">
-	        	<img :src="the_thumbnail" alt="...">
-	        </div>
+		<a 
+			class="post-thumbnail"
+			:href="the_permalink"
+		>
+		<img
+			:src="the_thumbnail"
+			class="attachment-post-thumbnail size-post-thumbnail wp-post-image"
+			alt=""
+		/></a>
 
-	        <div class="mx-ddp-content">
-		        <a :href="the_permalink" class="mx-ddp-title">{{ the_title }}</a>
-		        <div v-html="post_excerpt"></div>
-	        </div>
-	        <div 
-	        	v-if="tags"
-	        	class="mx-news-footer"
-	        >
-	        	<a 
-	        		v-for="tag in tags"
-	        		:href="tag.tag_link"
-	        	>{{ tag.name }}</a>
-	        </div>
-	    </div>
+		<div class="mx-search-content">
 
-    </div>
+			<header class="entry-header">
+				<h2 class="entry-title">
+					<a 
+						:href="the_permalink"
+						v-html="the_title"
+					></a>
+				</h2>
+			</header>
+
+			<div class="entry-summary">
+				<p v-html="post_excerpt"></p>
+			</div>
+
+		</div>
+
+	</article>
 	`,
 	data() {
 		return {			
@@ -218,25 +253,9 @@ Vue.component( 'mx_ddp_item', {
 	},
 	computed: {
 
-		tags() {
-			return this.ddpitemdata.tags
-		},
-
-		read_more_text() {
-
-			if( mx_ddpdata_obj_front.texts.language === 'en' ) {
-
-				return mx_ddpdata_obj_front.texts.read_more_en
-
-			}
-
-			return mx_ddpdata_obj_front.texts.read_more_ru
-
-		},
-
 		get_classes_wrap() {
 
-			let classes = 'mx-container col-md-4'
+			let classes = 'col-lg-6'
 
 			return classes
 
@@ -246,13 +265,23 @@ Vue.component( 'mx_ddp_item', {
 		},
 		the_title() {
 
+			let query = new RegExp( this.query, 'i' )
+
 			if( this.ddpitemdata.short_title ) {
 
-				return this.ddpitemdata.short_title
+				let title = this.ddpitemdata.short_title
+
+				title = title.replace( query, '<span style="text-decoration: underline;">' + this.query + '</span>' )
+
+				return title
 
 			}
 
-			return this.ddpitemdata.post_title
+			let title = this.ddpitemdata.post_title
+
+			title = title.replace( query, '<span style="text-decoration: underline;">' + this.query + '</span>' )
+
+			return title
 		},
 		the_permalink() {
 
@@ -274,7 +303,13 @@ Vue.component( 'mx_ddp_item', {
 		},
 		post_excerpt() {
 
-			return this.ddpitemdata.post_excerpt
+			let query = new RegExp( this.query, 'i' )
+
+			let post_excerpt = this.ddpitemdata.post_excerpt
+
+			post_excerpt = post_excerpt.replace( query, '<span style="text-decoration: underline;">' + this.query + '</span>' )
+
+			return post_excerpt
 
 		},
 		the_content() {
@@ -299,21 +334,7 @@ Vue.component( 'mx_ddp_item', {
 		},
 		the_date() {
 
-			if( this.ddpitemdata.fake_date ) {
-
-				return this.ddpitemdata.fake_date
-
-			}
-
-			let date = this.ddpitemdata.post_date
-
-			if( mx_ddpdata_obj_front.texts.language === 'en' ) {
-
-				date = date.replace( 'г.', '' )
-
-			}
-
-			return date
+			return this.ddpitemdata.post_date
 
 		}
 
@@ -322,7 +343,7 @@ Vue.component( 'mx_ddp_item', {
 } )
 
 // list of items
-Vue.component( 'mx_ddp_list_items', {
+Vue.component( 'mx_ddp_list_items_sp', {
 
 	props: {
 		getddpitems: {
@@ -352,6 +373,10 @@ Vue.component( 'mx_ddp_list_items', {
 		default_photo: {
 			type: String,
 			required: true
+		},
+		query: {
+			type: String,
+			required: true
 		}
 	},
 	template: `
@@ -360,7 +385,7 @@ Vue.component( 'mx_ddp_list_items', {
 			<div v-if="parsejsonerror">
 				${mx_ddpdata_obj_front.texts.error_getting}
 			</div>
-			<div class="container" v-else>
+			<div v-else>
 
 				<div v-if="!getddpitems.length">				
 
@@ -372,18 +397,19 @@ Vue.component( 'mx_ddp_list_items', {
 					</div>
 
 				</div>
-				<div 					
+				<div 
 					:class="get_classes_wrap"
 					v-else
 				>
 
-					<mx_ddp_item
+					<mx_ddp_item_sp
 						v-for="item in get_items"
 						:key="item.ID"				
 						:ddpitemdata="item"
 						:post_type="post_type"
 						:default_photo="default_photo"
-					></mx_ddp_item>
+						:query="query"
+					></mx_ddp_item_sp>
 
 				</div>
 
@@ -399,7 +425,7 @@ Vue.component( 'mx_ddp_list_items', {
 
 		get_classes_wrap() {
 
-			let classes = 'mx-news-list row'
+			let classes = 'row'
 
 			return classes
 
@@ -413,7 +439,7 @@ Vue.component( 'mx_ddp_list_items', {
 } )
 
 // ddp pagination
-Vue.component( 'mx_ddp_pagination',	{
+Vue.component( 'mx_ddp_pagination_sp',	{
 
 	props: {
 		ddpcount: {
@@ -482,10 +508,10 @@ Vue.component( 'mx_ddp_pagination',	{
 	}
 } )
 
-if( document.getElementById( 'mx_ddp_container' ) ) {
+if( document.getElementById( 'mx_ddp_container_sp' ) ) {
 
 	var app = new Vue( {
-		el: '#mx_ddp_container',
+		el: '#mx_ddp_container_sp',
 		data: {
 			noItemsMessages: {
 				noItemsInDB: mx_ddpdata_obj_front.texts.no_questions,
@@ -518,7 +544,7 @@ if( document.getElementById( 'mx_ddp_container' ) ) {
 
 				let data = {
 
-					action: 'mx_ddp_load_more_items',
+					action: 'mx_ddp_load_more_items_sp',
 					nonce: mx_ddpdata_obj_front.nonce,
 					current_page: _this.ddpCurrentPage + 1,
 					ddp_per_page: _this.ddpPerPage,
@@ -654,7 +680,7 @@ if( document.getElementById( 'mx_ddp_container' ) ) {
 
 				var data = {
 
-					action: 'mx_get_count_ddp_items',
+					action: 'mx_get_count_ddp_items_sp',
 					nonce: mx_ddpdata_obj_front.nonce,
 					query: _query,
 					tax_query: _this.tax_query,
@@ -682,7 +708,7 @@ if( document.getElementById( 'mx_ddp_container' ) ) {
 
 				var data = {
 
-					action: 'mx_get_ddp_items',
+					action: 'mx_get_ddp_items_sp',
 					nonce: mx_ddpdata_obj_front.nonce,
 					current_page: _this.ddpCurrentPage,
 					ddp_per_page: _this.ddpPerPage,
@@ -803,10 +829,29 @@ if( document.getElementById( 'mx_ddp_container' ) ) {
 
 				}
 
-			}		
-			
+			},
+
+			set_search_str() {
+
+				if( typeof mx_search_musin !== 'undefined' ) {
+
+					let _this = this
+
+					this.query = mx_search_musin
+
+				}
+
+			}
+				
 		},
-		beforeMount() {
+		beforeMount() {		
+
+			// search
+			this.set_search_str()		
+
+		},
+
+		mounted() {
 
 			// prepate tax query
 			this.prepareTaxQuery()
@@ -824,13 +869,13 @@ if( document.getElementById( 'mx_ddp_container' ) ) {
 			this.prepareDefaultImage()
 
 			// prepare search bar
-			this.prepareSearchBar()
+			// this.prepareSearchBar()			
 
 			// get current page
 			this.get_current_page()
 
 			// get count of ddp items
-			this.get_count_ddp_items( null )
+			this.get_count_ddp_items( this.query )
 
 			// get ddp items
 			this.get_ddp_items()
