@@ -38,12 +38,8 @@ class MXDDP_Enqueue_Scripts_Frontend
 
 				// production version
 				wp_enqueue_script( 'mx_ddp_vue_js', MXDDP_PLUGIN_URL . 'includes/frontend/assets/add/vue_js/vue.production.js', [], MXDDP_PLUGIN_VERSION, true );
-
+			
 			wp_enqueue_script( 'mxddp_script', MXDDP_PLUGIN_URL . 'includes/frontend/assets/js/script.js', ['mx_ddp_vue_js', 'jquery' ], MXDDP_PLUGIN_VERSION, true );
-
-			wp_enqueue_script( 'mxddp_script_sp', MXDDP_PLUGIN_URL . 'includes/frontend/assets/js/script-search-page.js', ['mx_ddp_vue_js', 'jquery' ], MXDDP_PLUGIN_VERSION, true );
-
-
 
 
 			wp_localize_script( 'mxddp_script', 'mx_ddpdata_obj_front', [
@@ -59,14 +55,7 @@ class MXDDP_Enqueue_Scripts_Frontend
 				'texts'	=> [
 					'error_getting' 	=> __( 'Error getting Data from database!', 'mx_ddp-domain' ),
 					'no_questions'		=> __( 'There are no posts yet.', 'mx_ddp-domain' ),
-					'nothing_found'		=> __( 'Nothing found!', 'mx_ddp-domain' ),
-					'read_more_ru'		=> 'Подробнее',
-					'read_more_en'		=> 'View',
-					'post_nav_ru'		=> 'Навигация по записям',
-					'post_nav_en'		=> 'Post navigation',
-					'more_res_ru'		=> 'Еще результаты',
-					'more_res_en'		=> 'More results'
-
+					'nothing_found'		=> __( 'Nothing found!', 'mx_ddp-domain' )					
 				]
 
 			] );

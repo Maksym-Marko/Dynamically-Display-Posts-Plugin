@@ -90,7 +90,7 @@ class MXDDP_Route_Registrar
 	* $settings_area 	- place item to settings area (core WP Settings menu item)
 	*
 	*/
-	public function mxddp_set_data( $controller, $action, $slug = MXDDP_MAIN_MENU_SLUG, array $menu_properties, $sub_menu_slug = false, $settings_area = false )
+	public function mxddp_set_data( $controller='', $action='', $slug = MXDDP_MAIN_MENU_SLUG, array $menu_properties=[], $sub_menu_slug = false, $settings_area = false )
 	{
 
 		// set controller

@@ -2,13 +2,13 @@
 Contributors: markomaksym
 Tags: display posts, display CPT, pagination, load more button
 Requires at least: 5.0
-Tested up to: 5.6
-Stable tag: 888
+Tested up to: 6.3
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 	WP Plugin Sceleton Generator Version: 			3.0
 	WP Plugin Sceleton Generator Author: 			Maksym Marko
-	WP Plugin Sceleton Generator Author Website:	
+	WP Plugin Sceleton Generator Author Website:	https://markomaksym.com.ua/
 
 This plugin allows you to display a list of posts on your website on any page.
 
@@ -74,6 +74,9 @@ This plugin allows you to display a list of posts on your website on any page.
 1. How the posts feed looks like
 
 == Changelog ==
+
+= 1.1 =
+* Tested up to WP 6.3
 
 = 1.0 =
 * Dynamically Display Posts

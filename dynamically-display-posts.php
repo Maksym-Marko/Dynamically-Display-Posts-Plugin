@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Dynamically Display Posts
-Plugin URI: 
+Plugin URI: https://github.com/Maxim-us/Dynamically-Display-Posts-Plugin
 Description: This plugin allows you to display a list of posts on your website on any page.
-Author: Marko Maksym
-Version: 888
-Author URI: 
+Author: Maksym Marko
+Version: 1.1
+Author URI: https://markomaksym.com.ua/
 */
 
 // Exit if accessed directly
@@ -74,7 +74,7 @@ if ( ! defined( 'MXDDP_PLUGIN_ABS_PATH' ) ) {
 if ( ! defined( 'MXDDP_PLUGIN_VERSION' ) ) {
 
 	// version
-	define( 'MXDDP_PLUGIN_VERSION', '5.1' ); // Must be replaced before production on for example '1.0'
+	define( 'MXDDP_PLUGIN_VERSION', '1.1' ); // Must be replaced before production on for example '1.0'
 
 }
 

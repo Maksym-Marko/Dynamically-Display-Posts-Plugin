@@ -142,29 +142,7 @@ Vue.component( 'mx_ddp_search', {
 
 			}
 			
-		},
-		get_search_by_str() {
-
-			if( typeof mx_search_musin !== 'undefined' ) {
-
-				let _this = this
-
-				this.search = mx_search_musin
-
-				setTimeout( function() {
-
-					_this.mxSearch()
-
-				}, 500 )				
-
-			}
-
 		}
-	},
-	mounted() {
-
-		this.get_search_by_str()
-
 	}
 } )
 
@@ -198,15 +176,6 @@ Vue.component( 'mx_ddp_item', {
 		        <a :href="the_permalink" class="mx-ddp-title">{{ the_title }}</a>
 		        <div v-html="post_excerpt"></div>
 	        </div>
-	        <div 
-	        	v-if="tags"
-	        	class="mx-news-footer"
-	        >
-	        	<a 
-	        		v-for="tag in tags"
-	        		:href="tag.tag_link"
-	        	>{{ tag.name }}</a>
-	        </div>
 	    </div>
 
     </div>
@@ -218,25 +187,9 @@ Vue.component( 'mx_ddp_item', {
 	},
 	computed: {
 
-		tags() {
-			return this.ddpitemdata.tags
-		},
-
-		read_more_text() {
-
-			if( mx_ddpdata_obj_front.texts.language === 'en' ) {
-
-				return mx_ddpdata_obj_front.texts.read_more_en
-
-			}
-
-			return mx_ddpdata_obj_front.texts.read_more_ru
-
-		},
-
 		get_classes_wrap() {
 
-			let classes = 'mx-container col-md-4'
+			let classes = 'mx-container'
 
 			return classes
 
@@ -245,13 +198,6 @@ Vue.component( 'mx_ddp_item', {
 			return this.ddpitemdata.ID
 		},
 		the_title() {
-
-			if( this.ddpitemdata.short_title ) {
-
-				return this.ddpitemdata.short_title
-
-			}
-
 			return this.ddpitemdata.post_title
 		},
 		the_permalink() {
@@ -298,23 +244,15 @@ Vue.component( 'mx_ddp_item', {
 			return this.ddpitemdata.user_name
 		},
 		the_date() {
+			let date = new Date( this.ddpitemdata.post_date )
 
-			if( this.ddpitemdata.fake_date ) {
+			let day = date.getDate()
 
-				return this.ddpitemdata.fake_date
+			let month = date.getMonth() + 1
 
-			}
+			let year = date.getFullYear()
 
-			let date = this.ddpitemdata.post_date
-
-			if( mx_ddpdata_obj_front.texts.language === 'en' ) {
-
-				date = date.replace( 'г.', '' )
-
-			}
-
-			return date
-
+			return day + '/' + month + '/' + year
 		}
 
 	}
@@ -360,7 +298,7 @@ Vue.component( 'mx_ddp_list_items', {
 			<div v-if="parsejsonerror">
 				${mx_ddpdata_obj_front.texts.error_getting}
 			</div>
-			<div class="container" v-else>
+			<div v-else>
 
 				<div v-if="!getddpitems.length">				
 
@@ -372,7 +310,7 @@ Vue.component( 'mx_ddp_list_items', {
 					</div>
 
 				</div>
-				<div 					
+				<div 
 					:class="get_classes_wrap"
 					v-else
 				>
@@ -399,7 +337,7 @@ Vue.component( 'mx_ddp_list_items', {
 
 		get_classes_wrap() {
 
-			let classes = 'mx-news-list row'
+			let classes = 'mx-news-list'
 
 			return classes
 
